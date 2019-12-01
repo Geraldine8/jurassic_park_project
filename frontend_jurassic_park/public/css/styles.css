@@ -1,0 +1,44 @@
+html, body {
+  height: 100%;
+}
+
+.park {
+  background-image: url("../images/bck.jpg");
+  background-size: 70% 90%;
+  height: 100%;
+  width: 100%;
+}
+.menu {
+  width: 250px;
+  height: 350px;
+  background-image: url("../images/menu_bck.jpg");
+  background-size: 300px 300px;
+  background-repeat: repeat-y;
+  float: left;
+  -webkit-box-shadow: 15px 18px 16px -12px rgba(74,72,74,0.56);
+  -moz-box-shadow: 15px 18px 16px -12px rgba(74,72,74,0.56);
+  box-shadow: 15px 18px 16px -12px rgba(74,72,74,0.56);
+}
+
+#root {
+  height: 100%;
+}
+.menu-container {
+  height: 100%
+}
+
+.paddock {
+  background-image: url("../images/paddo.png");
+  background-size: 160px 170px;
+  background-repeat: no-repeat;
+  width: 150px;
+  height: 150px;
+  margin-right: 30px;
+}
+
+.list-paddocks{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+
+}
