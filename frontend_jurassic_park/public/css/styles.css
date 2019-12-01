@@ -40,5 +40,19 @@ html, body {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
+}
 
+.paddock-details {
+  width: 300px;
+  height: 300px;
+  background-color: #636f6e;
+  opacity: 0.9;
+  position: absolute;
+  z-index: 500;
+  border-radius: 8px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  padding-bottom: 10px;
 }

@@ -1,8 +1,7 @@
 package com.codeclan.example.dino_project.models;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cascade;
+import org.springframework.data.rest.core.annotation.RestResource;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,30 +10,25 @@ import java.io.Serializable;
 @Table(name="dinosaurs")
 public class Dinosaur implements Serializable {
 
-
-    @Column(name = "stomach_level")
-    private int stomach_level;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonIgnoreProperties("dinosaurs")
+    @Column(name = "stomach_level")
+    private int stomachLevel;
+
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @ManyToOne
     @JoinColumn(name = "paddock_id", nullable = true)
     private Paddock paddock;
 
-    @JsonIgnoreProperties("genara")
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "genus_id", nullable = false)
     private Genus genus;
 
 
-
-    public Dinosaur(int stomach_level, Genus genus, Paddock paddock) {
-        this.stomach_level = stomach_level;
+    public Dinosaur(int stomachLevel, Genus genus, Paddock paddock) {
+        this.stomachLevel = stomachLevel;
         this.genus = genus;
         this.paddock = paddock;
     }
@@ -43,12 +37,12 @@ public class Dinosaur implements Serializable {
 
     }
 
-    public int getStomach_level() {
-        return stomach_level;
+    public int getStomachLevel() {
+        return stomachLevel;
     }
 
-    public void setStomach_level(int stomach_level) {
-        this.stomach_level = stomach_level;
+    public void setStomachLevel(int stomachLevel) {
+        this.stomachLevel = stomachLevel;
     }
 
     public Long getId() {
@@ -60,7 +54,7 @@ public class Dinosaur implements Serializable {
     }
 
     public Paddock getPaddock() {
-        return paddock;
+        return this.paddock;
     }
 
     public void setPaddock(Paddock paddock) {
@@ -68,7 +62,7 @@ public class Dinosaur implements Serializable {
     }
 
     public Genus getGenus() {
-        return genus;
+        return this.genus;
     }
 
     public void setGenus(Genus genus) {

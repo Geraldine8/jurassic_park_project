@@ -1,7 +1,5 @@
 package com.codeclan.example.dino_project.models;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
@@ -12,14 +10,13 @@ import java.util.List;
 @Table(name = "paddocks")
 public class Paddock implements Serializable {
 
-    @Column(name = "name")
-    private String name;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonIgnoreProperties("paddocks")
+    @Column(name = "name")
+    private String name;
+
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @OneToMany(mappedBy = "paddock", fetch = FetchType.LAZY)
     private List<Dinosaur> dinosaurs;
@@ -28,9 +25,7 @@ public class Paddock implements Serializable {
         this.name = name;
     }
 
-    public Paddock(){
-
-    }
+    public Paddock() {}
 
     public String getName() {
         return name;
