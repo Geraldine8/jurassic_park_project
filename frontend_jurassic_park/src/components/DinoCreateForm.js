@@ -1,13 +1,13 @@
 import React , {Component} from 'react';
 import Request from '../helpers/request'
-
+import PaddocksSelect from './PaddocksSelect'
 
 class DinoCreateForm extends Component{
   constructor(props) {
     super(props);
     this.state = {
       genera: [],
-      stomachLevel: 0,
+      stomachLevel: 50,
       paddocks: []
     }
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -47,7 +47,6 @@ class DinoCreateForm extends Component{
     this.props.onFormSubmit(newDinosaur);
   }
 
-
   render() {
     if(this.state.genera.length === 0) {
       return <p>Loading...</p>
@@ -56,19 +55,13 @@ class DinoCreateForm extends Component{
       return <option key={index} value={genus._links.self.href}>{genus.genus}</option>
     })
 
-    const paddockOptions = this.state.paddocks.map((paddock, index) => {
-      return <option key={index} value={paddock._links.self.href}>{paddock.name}</option>
-    })
-
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
           <select name="genera">
             {generaOptions}
           </select>
-          <select name="paddock">
-            {paddockOptions}
-          </select>
+          <PaddocksSelect paddocks={this.state.paddocks}/>
           <button type="submit">Clone</button>
         </form>
       </div>

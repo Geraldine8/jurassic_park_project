@@ -6,7 +6,7 @@ class ListPaddock extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      dinosaurs: [],
+      selectedPaddock: null,
     }
     this.handlePaddockSelected = this.handlePaddockSelected.bind(this);
     this.handleClosePaddock = this.handleClosePaddock.bind(this);
@@ -16,12 +16,12 @@ class ListPaddock extends Component{
     const request = new Request();
     request.get('/api/paddocks/'+paddock.id)
       .then(data => {
-          this.setState({dinosaurs: data._embedded.dinosaurs});
+          this.setState({selectedPaddock: data});
       });
   }
 
   handleClosePaddock() {
-    this.setState({dinosaurs: []});
+    this.setState({selectedPaddock: null});
   }
 
   render() {
@@ -33,8 +33,11 @@ class ListPaddock extends Component{
           <div className='list-paddocks'>
             {paddocksList}
           </div>
-          <ListDinosaursInPaddock dinosaurs={this.state.dinosaurs} handleClosePaddock={this.handleClosePaddock} />
-
+          <ListDinosaursInPaddock
+            paddock={this.state.selectedPaddock}
+            handleClosePaddock={this.handleClosePaddock}
+            paddocksList={this.props.paddocks}
+          />
         </div>
     )
   }

@@ -31,7 +31,6 @@ class PaddockCreateForm extends Component{
           name="Name"
           onChange={this.handleName}
           value={this.state.name} />
-
           <button type="submit">Create</button>
         </form>
       </div>

@@ -53,7 +53,7 @@ public class DataLoader implements ApplicationRunner {
         paddockRepository.save(paddock1);
         paddockRepository.save(paddock2);
 
-        Dinosaur dinosaur1 = new Dinosaur(100, tRex, paddock1);
+        Dinosaur dinosaur1 = new Dinosaur(50, tRex, paddock1);
         Dinosaur dinosaur2 = new Dinosaur(0, velociraptor, paddock1);
         Dinosaur dinosaur3 = new Dinosaur(0, brontosaurus, paddock2);
 
