@@ -16,7 +16,6 @@ public class Dinosaur implements Serializable {
 
     @Column(name = "stomach_level")
     private int stomachLevel;
-
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @ManyToOne
     @JoinColumn(name = "paddock_id", nullable = true)

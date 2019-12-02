@@ -26,7 +26,7 @@ class PaddockCreateForm extends Component{
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
+        <form className="form-paddock" onSubmit={this.handleSubmit}>
           <input type="text" placeholder="Name"
           name="Name"
           onChange={this.handleName}

@@ -9,7 +9,7 @@ class EnergyLevel extends Component{
     return (
       <div className="low-energy">
         <div className="high-energy" style={{width: this.props.level + '%'}}>
-          
+          {this.props.level}
         </div>
       </div>
     )

@@ -6,11 +6,31 @@ import EnergyLevel from './EnergyLevel'
 class ListDinosaursInPaddock extends Component{
   constructor(props) {
     super(props);
-    this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
-  handleFormSubmit(event) {
+  removeElement(elementId) {
+    document.getElementById(elementId).remove()
+  }
+
+  handleTransfer(event) {
     event.preventDefault();
+    const request = new Request();
+    const dinoId = event.target.dinoId.value;
+    request.putUri('/api/dinosaurs/'+dinoId+'/paddock', event.target.paddock.value)
+      .then(data => {
+        document.getElementById(dinoId).remove()
+      }, dinoId)
+  }
+
+  feedDino(dinosaur) {
+    const request = new Request();
+    const payload = {
+      stomachLevel: +dinosaur.stomachLevel + 5
+    }
+    request.putJson('/api/dinosaurs/'+dinosaur.id, payload)
+      .then(data => {
+        this.props.refreshComponent()
+      })
   }
 
   render() {
@@ -24,7 +44,7 @@ class ListDinosaursInPaddock extends Component{
     const dinoList = this.props.paddock._embedded.dinosaurs.map((dinosaur, index) => {
       const imgUrl = '/images/'+dinosaur.genus.genus+'.png';
       const typeImage = '/images/'+dinosaur.genus.type+'.png';
-      return <tr key={index}>
+      return <tr id={dinosaur.id} key={index}>
         <td>
           <img className='dino-image' src={imgUrl}/>
         </td>
@@ -35,14 +55,17 @@ class ListDinosaursInPaddock extends Component{
           <img className='dino-type' src={typeImage}/>
         </td>
         <td>
-          <PaddocksSelect paddocks={this.props.paddocksList}/>
-          <button>-></button>
+          <form onSubmit={this.handleTransfer}>
+            <PaddocksSelect paddocks={this.props.paddocksList} selected={this.props.paddock}/>
+            <input name='dinoId' type='hidden' value={dinosaur.id}/>
+            <button type='submit'>-></button>
+          </form>
         </td>
         <td>
           <EnergyLevel level={dinosaur.stomachLevel}/>
         </td>
         <td>
-          <button></button>
+          <button onClick={() => this.feedDino(dinosaur)}></button>
         </td>
 
       </tr>
@@ -52,25 +75,23 @@ class ListDinosaursInPaddock extends Component{
       <div className="paddock-details">
         <div className='close' onClick={this.props.handleClosePaddock}></div>
         {this.props.paddock.name}
-        <div className='dino-list'>
-          <form onSubmit={this.handleFormSubmit}>
-            <table>
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>Genus</th>
-                  <th>Type</th>
-                  <th>Transfer</th>
-                  <th>Energy</th>
-                  <th>Feed</th>
-                </tr>
-              </thead>
-              <tbody>
-                {dinoList}
-              </tbody>
-            </table>
-          </form>
-        </div>
+          <div className='dino-list'>
+              <table>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Genus</th>
+                    <th>Type</th>
+                    <th>Transfer</th>
+                    <th>Energy</th>
+                    <th>Feed</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {dinoList}
+                </tbody>
+              </table>
+          </div>
       </div>
     )
   }
