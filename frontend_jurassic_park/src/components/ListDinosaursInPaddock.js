@@ -6,6 +6,19 @@ import EnergyLevel from './EnergyLevel'
 class ListDinosaursInPaddock extends Component{
   constructor(props) {
     super(props);
+    this.state = {
+      stomachLevel : []
+    }
+  }
+
+  componentDidMount() {
+    let stomachLevel = [];
+    for (let key in this.props.paddock._embedded.dinosaurs) {
+      let dino = this.props.paddock._embedded.dinosaurs[key];
+      stomachLevel[dino.id] = dino.stomachLevel;
+    }
+
+    this.setState({stomachLevel: stomachLevel});
   }
 
   removeElement(elementId) {
@@ -24,9 +37,24 @@ class ListDinosaursInPaddock extends Component{
 
   feedDino(dinosaur) {
     const request = new Request();
+    const newStomachLevel = +this.state.stomachLevel[dinosaur.id] + 5;
     const payload = {
-      stomachLevel: +dinosaur.stomachLevel + 5
+      stomachLevel: newStomachLevel
     }
+    this.setState(state => {
+      let stomachLevel = [];
+      for (let key in state.stomachLevel) {
+        let level = state.stomachLevel[key];
+        if (key == dinosaur.id) {
+          stomachLevel[key] = String(newStomachLevel)
+        } else {
+          stomachLevel[key] = level
+        }
+      }
+      return {
+        stomachLevel,
+      };
+    });
     request.putJson('/api/dinosaurs/'+dinosaur.id, payload)
       .then(data => {
         this.props.refreshComponent()
@@ -44,6 +72,7 @@ class ListDinosaursInPaddock extends Component{
     const dinoList = this.props.paddock._embedded.dinosaurs.map((dinosaur, index) => {
       const imgUrl = '/images/'+dinosaur.genus.genus+'.png';
       const typeImage = '/images/'+dinosaur.genus.type+'.png';
+
       return <tr id={dinosaur.id} key={index}>
         <td>
           <img className='dino-image' src={imgUrl}/>
@@ -62,7 +91,9 @@ class ListDinosaursInPaddock extends Component{
           </form>
         </td>
         <td>
-          <EnergyLevel level={dinosaur.stomachLevel}/>
+          {this.state.stomachLevel[dinosaur.id] &&
+            <EnergyLevel level={this.state.stomachLevel[dinosaur.id]} />
+          }
         </td>
         <td>
           <button onClick={() => this.feedDino(dinosaur)}></button>

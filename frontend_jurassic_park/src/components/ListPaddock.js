@@ -38,12 +38,14 @@ class ListPaddock extends Component{
           <div className='list-paddocks'>
             {paddocksList}
           </div>
-          <ListDinosaursInPaddock
-            paddock={this.state.selectedPaddock}
-            handleClosePaddock={this.handleClosePaddock}
-            paddocksList={this.props.paddocks}
-            refreshComponent={this.refreshComponent}
-          />
+          {this.state.selectedPaddock &&
+            <ListDinosaursInPaddock
+              paddock={this.state.selectedPaddock}
+              handleClosePaddock={this.handleClosePaddock}
+              paddocksList={this.props.paddocks}
+              refreshComponent={this.refreshComponent}
+            />
+          }
         </div>
     )
   }
