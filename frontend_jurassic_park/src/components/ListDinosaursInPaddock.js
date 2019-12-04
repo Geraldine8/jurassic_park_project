@@ -113,7 +113,9 @@ class ListDinosaursInPaddock extends Component{
         <div className="windows">
           <div className="paddock-details">
             <div className='close' onClick={this.props.handleClosePaddock}></div>
-            <span>{this.props.paddock.name}</span>
+            <div className="paddock-name">
+              <span>{this.props.paddock.name}</span>
+            </div>
               <div className='dino-list'>
                   <table>
                     <thead>
