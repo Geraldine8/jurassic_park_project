@@ -110,21 +110,3 @@ class MainContainer extends Component {
 }
 
 export default MainContainer;
-
-// <Router>
-//   <Fragment>
-//     <Switch>
-//       <Route exact path ='/dinosaurs/new' render={()=>{
-//         return <PirateCreateForm onFormSubmit={this.handlePost}/>
-//       }}/>
-//       <Route exact path="/pirates/:id" render={(props) => {
-//         const id = props.match.params.id;
-//         const pirate = this.findPirateById(id);
-//         return <PirateDetail pirate={pirate} onDelete={this.handleDelete}/>
-//       }}/>
-//       <Route render={(props) => {
-//         return <PirateList pirates={this.state.pirates}/>
-//       }}/>
-//     </Switch>
-//   </Fragment>
-// </Router>
