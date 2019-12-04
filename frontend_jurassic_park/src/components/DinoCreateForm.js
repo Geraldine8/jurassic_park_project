@@ -51,7 +51,7 @@ class DinoCreateForm extends Component{
     return (
       <div className="create-dino-form">
         <h3>Clone Dinosaur</h3>
-        <form clasName="dino-create-form" onSubmit={this.handleSubmit}>
+        <form className="dino-create-form" onSubmit={this.handleSubmit}>
           <select name="genera">
             {generaOptions}
           </select>

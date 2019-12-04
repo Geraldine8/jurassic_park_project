@@ -19,7 +19,7 @@ class Rampage extends Component{
         }
       }
     }
-    setInterval(randomRampage, 1000);
+    setInterval(randomRampage, 2000);
   }
 
   isDinoInRampageList(dino) {

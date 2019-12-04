@@ -166,6 +166,14 @@ input[type=submit]:hover {
   background-color: none;
 }
 
+.feed {
+  background-image: url("../images/feed.png");
+  background-size: 30px 30px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
 .close {
   float: right;
   box-sizing:border-box;
@@ -206,15 +214,20 @@ input[type=submit]:hover {
 }
 
 .visitor {
+  background-image: url("../images/visitor.png");
+  background-size: 60px 60px;
+  width: 60px;
+  height: 60px;
   float: right;
   top: 10px;
   background-color: orange;
-  width: 40px;
-  height: 40px;
   border-radius: 100%;
   border-width:3px;
   border-style: solid;
   border-color:#fff;
+  color: #fff;
+  margin-right: 25px;
+  margin-top: 25px;
 }
 
 .visitor div {

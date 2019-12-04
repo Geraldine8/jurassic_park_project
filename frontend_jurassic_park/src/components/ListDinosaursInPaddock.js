@@ -79,7 +79,6 @@ class ListDinosaursInPaddock extends Component{
     const dinoList = this.props.paddock._embedded.dinosaurs.map((dinosaur, index) => {
       const imgUrl = '/images/'+dinosaur.genus.genus+'.png';
       const typeImage = '/images/'+dinosaur.genus.type+'.png';
-
       return <tr id={dinosaur.id} key={index}>
         <td>
           <img className='dino-image' src={imgUrl}/>
@@ -103,7 +102,7 @@ class ListDinosaursInPaddock extends Component{
           }
         </td>
         <td>
-          <button onClick={() => this.feedDino(dinosaur)}></button>
+          <div className='feed' onClick={() => this.feedDino(dinosaur)}></div>
         </td>
 
       </tr>
