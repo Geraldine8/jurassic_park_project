@@ -25,14 +25,16 @@ class PaddockCreateForm extends Component{
 
   render() {
     return (
-      <div>
-        <form className="form-paddock" onSubmit={this.handleSubmit}>
-          <input type="text" placeholder="Name"
-          name="Name"
-          onChange={this.handleName}
-          value={this.state.name} />
-          <button type="submit">Create</button>
-        </form>
+      <div className="create-paddock-form">
+      <h3>Create Paddock</h3>
+      <form className="form-paddock" onSubmit={this.handleSubmit}>
+        <input type="text" placeholder="Name"
+        name="Name"
+        onChange={this.handleName}
+        value={this.state.name}
+        />
+        <button type="submit">Create</button>
+      </form>
       </div>
     )
   }

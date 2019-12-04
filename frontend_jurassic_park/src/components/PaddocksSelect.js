@@ -6,11 +6,8 @@ class PaddocksSelect extends Component{
   }
 
   render() {
-    if (!this.props.selected) {
-      return('');
-    }
     const paddockOptions = this.props.paddocks.map((paddock, index) => {
-      if (this.props.selected.name !== paddock.name) {
+      if (paddock._links && (!this.props.selected || this.props.selected.name !== paddock.name)) {
         return <option key={index} value={paddock._links.self.href}>{paddock.name}</option>
       }
     })

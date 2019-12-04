@@ -12,6 +12,9 @@ class ListDinosaursInPaddock extends Component{
   }
 
   componentDidMount() {
+    if (!this.props.paddock._embedded) {
+      return;
+    }
     let stomachLevel = [];
     for (let key in this.props.paddock._embedded.dinosaurs) {
       let dino = this.props.paddock._embedded.dinosaurs[key];
@@ -19,10 +22,6 @@ class ListDinosaursInPaddock extends Component{
     }
 
     this.setState({stomachLevel: stomachLevel});
-  }
-
-  removeElement(elementId) {
-    document.getElementById(elementId).remove()
   }
 
   handleTransfer(event) {
@@ -37,10 +36,15 @@ class ListDinosaursInPaddock extends Component{
 
   feedDino(dinosaur) {
     const request = new Request();
-    const newStomachLevel = +this.state.stomachLevel[dinosaur.id] + 5;
-    const payload = {
-      stomachLevel: newStomachLevel
+    const currentStomachLevel = +this.state.stomachLevel[dinosaur.id];
+    if (currentStomachLevel === 100) {
+      return;
     }
+    let newStomachLevel = currentStomachLevel + 5;
+    if (newStomachLevel > 100) {
+      newStomachLevel = 100;
+    }
+
     this.setState(state => {
       let stomachLevel = [];
       for (let key in state.stomachLevel) {
@@ -55,9 +59,12 @@ class ListDinosaursInPaddock extends Component{
         stomachLevel,
       };
     });
+    const payload = {
+      stomachLevel: newStomachLevel
+    }
     request.putJson('/api/dinosaurs/'+dinosaur.id, payload)
       .then(data => {
-        this.props.refreshComponent()
+
       })
   }
 
@@ -66,7 +73,7 @@ class ListDinosaursInPaddock extends Component{
       return ('')
     }
     if (!this.props.paddock._embedded){
-      return ("Empty")//TODO
+      return ("")//TODO
     }
 
     const dinoList = this.props.paddock._embedded.dinosaurs.map((dinosaur, index) => {
@@ -87,7 +94,7 @@ class ListDinosaursInPaddock extends Component{
           <form onSubmit={this.handleTransfer}>
             <PaddocksSelect paddocks={this.props.paddocksList} selected={this.props.paddock}/>
             <input name='dinoId' type='hidden' value={dinosaur.id}/>
-            <button type='submit'>-></button>
+            <button className="save" type='submit'></button>
           </form>
         </td>
         <td>
@@ -103,26 +110,30 @@ class ListDinosaursInPaddock extends Component{
     })
 
     return (
-      <div className="paddock-details">
-        <div className='close' onClick={this.props.handleClosePaddock}></div>
-        {this.props.paddock.name}
-          <div className='dino-list'>
-              <table>
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th>Genus</th>
-                    <th>Type</th>
-                    <th>Transfer</th>
-                    <th>Energy</th>
-                    <th>Feed</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {dinoList}
-                </tbody>
-              </table>
+      <div>
+        <div className="windows">
+          <div className="paddock-details">
+            <div className='close' onClick={this.props.handleClosePaddock}></div>
+            {this.props.paddock.name}
+              <div className='dino-list'>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>Genus</th>
+                        <th>Type</th>
+                        <th>Transfer</th>
+                        <th>Energy</th>
+                        <th>Feed</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {dinoList}
+                    </tbody>
+                  </table>
+              </div>
           </div>
+        </div>
       </div>
     )
   }

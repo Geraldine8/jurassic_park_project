@@ -8,7 +8,6 @@ class DinoCreateForm extends Component{
     this.state = {
       genera: [],
       stomachLevel: 50,
-      paddocks: []
     }
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -19,12 +18,6 @@ class DinoCreateForm extends Component{
       .then(data => {
         this.setState({
           genera: data._embedded.genera
-        })
-      })
-    request.get('/api/paddocks')
-      .then(data => {
-        this.setState({
-          paddocks: data._embedded.paddocks
         })
       })
   }
@@ -56,12 +49,13 @@ class DinoCreateForm extends Component{
     })
 
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
+      <div className="create-dino-form">
+        <h3>Clone Dinosaur</h3>
+        <form clasName="dino-create-form" onSubmit={this.handleSubmit}>
           <select name="genera">
             {generaOptions}
           </select>
-          <PaddocksSelect paddocks={this.state.paddocks}/>
+          <PaddocksSelect paddocks={this.props.paddocks}/>
           <button type="submit">Clone</button>
         </form>
       </div>

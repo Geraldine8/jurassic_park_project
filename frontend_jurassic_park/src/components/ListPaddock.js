@@ -10,7 +10,6 @@ class ListPaddock extends Component{
     }
     this.handlePaddockSelected = this.handlePaddockSelected.bind(this);
     this.handleClosePaddock = this.handleClosePaddock.bind(this);
-    this.refreshComponent = this.refreshComponent.bind(this);
   }
 
   handlePaddockSelected(paddock) {
@@ -23,10 +22,6 @@ class ListPaddock extends Component{
 
   handleClosePaddock() {
     this.setState({selectedPaddock: null});
-  }
-
-  refreshComponent() {
-    this.setState(this.state)
   }
 
   render() {
@@ -43,7 +38,6 @@ class ListPaddock extends Component{
               paddock={this.state.selectedPaddock}
               handleClosePaddock={this.handleClosePaddock}
               paddocksList={this.props.paddocks}
-              refreshComponent={this.refreshComponent}
             />
           }
         </div>
