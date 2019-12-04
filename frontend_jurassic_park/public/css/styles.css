@@ -128,6 +128,12 @@ input[type=submit]:hover {
   color: white;
   padding-bottom: 10px;
 }
+
+.paddock-details span {
+  font-weight: bold;
+  text-align: center;
+
+}
 .dino-list {
   margin-top: 30px;
   overflow-y: scroll;
